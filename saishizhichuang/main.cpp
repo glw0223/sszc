@@ -88,7 +88,7 @@ int main(int argc, const char * argv[]) {
             }
             if(got_picture){//解码成功
                 static int count = 0;
-                std::cout<<count++<<" frame"<<std::endl;
+                //std::cout<<count++<<" frame"<<std::endl;
             }
         }
     }
