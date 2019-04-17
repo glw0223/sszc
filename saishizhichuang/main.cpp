@@ -23,8 +23,8 @@ extern "C"
 #endif
 
 int main(int argc, const char * argv[]) {
-    char filepath[]="/Users/gaoliwen/work/testfile/gaoliwen.flv";
-    //char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
+    //char filepath[]="/Users/gaoliwen/work/testfile/gaoliwen.flv";
+    char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
     
     av_register_all();
     avformat_network_init();
@@ -45,7 +45,12 @@ int main(int argc, const char * argv[]) {
     
     //format 上下文初始化
     pFormatCtx = avformat_alloc_context();
-    int ret = avformat_open_input(&pFormatCtx, filepath, nullptr, nullptr);
+    
+    AVDictionary *format_opts = NULL;
+    //av_dict_set(&format_opts, "stimeout", std::to_string( 2* 1000000).c_str(), 0); //设置链接超时时间（us）
+    av_dict_set(&format_opts, "rtsp_transport",  "tcp", 0); //设置推流的方式，默认udp。
+    
+    int ret = avformat_open_input(&pFormatCtx, filepath, nullptr, &format_opts);
     std::cout<<"avformat_open_input result is "<<ret<<std::endl;
     
     ret = avformat_find_stream_info(pFormatCtx, nullptr);
