@@ -30,6 +30,7 @@
 		7E5CF7F42265857300CFC990 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5CF7F22265857300CFC990 /* CoreMedia.framework */; };
 		7E5CF7F6226585B400CFC990 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5CF7F5226585B400CFC990 /* libbz2.tbd */; };
 		7E5CF7F8226585D200CFC990 /* liblzma.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5CF7F7226585D200CFC990 /* liblzma.tbd */; };
+		7E5CF8782266C0BB00CFC990 /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5CF8772266C0BB00CFC990 /* libSDL2-2.0.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -181,6 +182,7 @@
 		7E5CF86E2265FEF000CFC990 /* dv_profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dv_profile.h; sourceTree = "<group>"; };
 		7E5CF8702265FEF000CFC990 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		7E5CF8712265FEF000CFC990 /* swresample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swresample.h; sourceTree = "<group>"; };
+		7E5CF8772266C0BB00CFC990 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../sdl2_temp/2.0.9/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E5CF8782266C0BB00CFC990 /* libSDL2-2.0.0.dylib in Frameworks */,
 				7E5CF7F02265856000CFC990 /* libiconv.tbd in Frameworks */,
 				7E5CF7F8226585D200CFC990 /* liblzma.tbd in Frameworks */,
 				7E5CF7F6226585B400CFC990 /* libbz2.tbd in Frameworks */,
@@ -245,6 +248,7 @@
 		7E5CF7852264E35B00CFC990 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7E5CF8772266C0BB00CFC990 /* libSDL2-2.0.0.dylib */,
 				7E5CF7EF2265856000CFC990 /* libiconv.tbd */,
 				7E5CF7E52265851700CFC990 /* libz.tbd */,
 				7E5CF7F7226585D200CFC990 /* liblzma.tbd */,
@@ -569,6 +573,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -622,6 +628,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -633,8 +641,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = /Users/gaoliwen/work/ffmpeg_temp/include;
-				LIBRARY_SEARCH_PATHS = /Users/gaoliwen/work/ffmpeg_temp/lib;
+				HEADER_SEARCH_PATHS = (
+					/Users/gaoliwen/work/ffmpeg_temp/include,
+					/Users/gaoliwen/work/sdl2_temp/2.0.9/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/Users/gaoliwen/work/ffmpeg_temp/lib,
+					/Users/gaoliwen/work/sdl2_temp/2.0.9/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -643,8 +657,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = /Users/gaoliwen/work/ffmpeg_temp/include;
-				LIBRARY_SEARCH_PATHS = /Users/gaoliwen/work/ffmpeg_temp/lib;
+				HEADER_SEARCH_PATHS = (
+					/Users/gaoliwen/work/ffmpeg_temp/include,
+					/Users/gaoliwen/work/sdl2_temp/2.0.9/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/Users/gaoliwen/work/ffmpeg_temp/lib,
+					/Users/gaoliwen/work/sdl2_temp/2.0.9/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

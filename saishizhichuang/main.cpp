@@ -7,15 +7,24 @@
 //
 
 #include <iostream>
+
+#ifdef __cplusplus
 extern "C"
 {
-#include<libavformat/avformat.h>
+#endif
+    
+#include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
 #include <libswscale/swscale.h>
+#include <SDL2/SDL.h>
+    
+#ifdef __cplusplus
 }
+#endif
 
 int main(int argc, const char * argv[]) {
     char filepath[]="/Users/gaoliwen/work/testfile/gaoliwen.flv";
+    //char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
     
     av_register_all();
     avformat_network_init();
@@ -27,6 +36,12 @@ int main(int argc, const char * argv[]) {
     AVFrame    *pFrame = nullptr, *pFrameYUV = nullptr;//frame 编码前的数据，如yuv数据
     AVPacket *packet = nullptr;//编码后的数据，如h264数据
     struct SwsContext *img_convert_ctx = nullptr;//图像转换上下文
+    
+    //SDL相关的变量
+    int screen_w = 0, screen_h = 0;//显示的宽和高
+    SDL_Window *screen = nullptr;
+    SDL_Rect rect;
+    SDL_Event event;
     
     //format 上下文初始化
     pFormatCtx = avformat_alloc_context();
@@ -61,6 +76,24 @@ int main(int argc, const char * argv[]) {
     pFrame = av_frame_alloc();
     pFrameYUV = av_frame_alloc();
     
+    uint8_t *out_buffer = new uint8_t[avpicture_get_size(AV_PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height)];//分配AVFrame所需内存
+    avpicture_fill((AVPicture *)pFrameYUV, out_buffer, AV_PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height);//填充AVFrame
+    
+    //SDL2初始化
+    ret = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
+    std::cout<<"SDL_Init result is "<<ret<<std::endl;
+    screen_w = pCodecCtx->width;
+    screen_h = pCodecCtx->height;
+    screen = SDL_CreateWindow("saishizhichuang", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                              pCodecCtx->width, pCodecCtx->height,
+                              SDL_WINDOW_RESIZABLE/* SDL_WINDOW_HIDDEN*/| SDL_WINDOW_OPENGL);
+    SDL_Renderer *sdlRenderer = SDL_CreateRenderer(screen, -1, 0);
+    SDL_Texture *sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_YV12,
+                                                SDL_TEXTUREACCESS_STREAMING,
+                                                screen_w, screen_h);
+    
+    int y_size = screen_w * screen_h;//就是yuv图像的y大小
+    
     //to do
     //逻辑
     
@@ -88,12 +121,48 @@ int main(int argc, const char * argv[]) {
             }
             if(got_picture){//解码成功
                 static int count = 0;
-                //std::cout<<count++<<" frame"<<std::endl;
+                std::cout<<count++<<" frame"<<std::endl;
+                
+                //像素格式转换
+                sws_scale(img_convert_ctx,
+                          (const uint8_t* const*)pFrame->data, pFrame->linesize,
+                          0, pCodecCtx->height,
+                          pFrameYUV->data, pFrameYUV->linesize);
+                
+                //////////
+                //@begin
+                rect.x = 0;
+                rect.y = 0;
+                rect.w = pCodecCtx->width;
+                rect.h = pCodecCtx->height;
+                
+                SDL_UpdateTexture( sdlTexture, &rect, pFrameYUV->data[0], pFrameYUV->linesize[0] );
+                SDL_RenderClear( sdlRenderer );
+                SDL_RenderCopy( sdlRenderer, sdlTexture, &rect, &rect );
+                SDL_RenderPresent( sdlRenderer );
+                //延时10ms
+                SDL_Delay(10);
+                //@end
+                //////////
             }
+        }//end of "if(packet->stream_index == videoindex)"
+        av_free_packet(packet);
+        SDL_PollEvent(&event);
+        switch( event.type ) {
+            case SDL_QUIT:
+                SDL_Quit();
+                exit(0);
+                break;
+            default:
+                break;
         }
     }
     
+    sws_freeContext(img_convert_ctx);
     
+    SDL_DestroyTexture(sdlTexture);
+    delete[] out_buffer;
+    av_free(pFrameYUV);
     
     //avcodec_free_context(&pCodecCtx);//不需要
     avcodec_close(pCodecCtx);
