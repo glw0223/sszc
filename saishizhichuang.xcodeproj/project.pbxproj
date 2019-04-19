@@ -31,6 +31,7 @@
 		7E5CF7F6226585B400CFC990 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5CF7F5226585B400CFC990 /* libbz2.tbd */; };
 		7E5CF7F8226585D200CFC990 /* liblzma.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5CF7F7226585D200CFC990 /* liblzma.tbd */; };
 		7E5CF8782266C0BB00CFC990 /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5CF8772266C0BB00CFC990 /* libSDL2-2.0.0.dylib */; };
+		7E5CF87D22674BCF00CFC990 /* RTSPSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E5CF87B22674BCF00CFC990 /* RTSPSource.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -183,6 +184,8 @@
 		7E5CF8702265FEF000CFC990 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		7E5CF8712265FEF000CFC990 /* swresample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swresample.h; sourceTree = "<group>"; };
 		7E5CF8772266C0BB00CFC990 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../sdl2_temp/2.0.9/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
+		7E5CF87B22674BCF00CFC990 /* RTSPSource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RTSPSource.cpp; sourceTree = "<group>"; };
+		7E5CF87C22674BCF00CFC990 /* RTSPSource.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RTSPSource.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +242,7 @@
 		7E5CF77D2264DF9C00CFC990 /* saishizhichuang */ = {
 			isa = PBXGroup;
 			children = (
+				7E5CF87A22674B9500CFC990 /* source */,
 				7E5CF7F92265FECC00CFC990 /* ffmpeg */,
 				7E5CF77E2264DF9C00CFC990 /* main.cpp */,
 			);
@@ -459,6 +463,15 @@
 			path = libswresample;
 			sourceTree = "<group>";
 		};
+		7E5CF87A22674B9500CFC990 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				7E5CF87B22674BCF00CFC990 /* RTSPSource.cpp */,
+				7E5CF87C22674BCF00CFC990 /* RTSPSource.hpp */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -515,6 +528,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E5CF87D22674BCF00CFC990 /* RTSPSource.cpp in Sources */,
 				7E5CF77F2264DF9C00CFC990 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
