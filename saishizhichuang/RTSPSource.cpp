@@ -12,18 +12,6 @@
 
 #include <stdio.h>
 
-void *thread(void *str)
-{
-    int i;
-    for (i = 0; i < 10; ++i)
-    {
-        usleep(100);
-        printf( "This in the thread : %d\n" , i );
-    }
-    return NULL;
-}
-
-
 RTSPSource::RTSPSource(){
     
 }

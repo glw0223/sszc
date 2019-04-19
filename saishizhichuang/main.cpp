@@ -22,7 +22,7 @@ extern "C"
 }
 #endif
 
-#include "source/RTSPSource.hpp"
+#include "RTSPSource.hpp"
 
 #include <unistd.h>
 
