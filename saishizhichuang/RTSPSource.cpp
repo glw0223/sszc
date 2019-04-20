@@ -19,7 +19,7 @@ RTSPSource::~RTSPSource(){
     
 }
 void RTSPSource::Init(){
-    char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch40/main/av_stream";
+    char filepath[]="rtsp://admin:a12345678@192.168.0.62/h264/ch1/main/av_stream";
     //format 上下文初始化
     pFormatCtx = avformat_alloc_context();
     
@@ -148,8 +148,6 @@ void RTSPSource::Loop(){
             if(got_picture){//解码成功
                 static int count = 0;
                 std::cout<<count++<<" frame"<<std::endl;
-                
-                
                 
                 pFrameYUV = av_frame_alloc();
                 out_buffer = new uint8_t[avpicture_get_size(AV_PIX_FMT_YUV420P, pCodecCtx->width, pCodecCtx->height)];//分配AVFrame所需内存

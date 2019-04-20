@@ -29,7 +29,8 @@ extern "C"
 int main(int argc, const char * argv[]) {
     //char filepath[]="/Users/gaoliwen/work/testfile/gaoliwen.flv";
     //char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
-    char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch40/main/av_stream";
+    //char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch40/main/av_stream";
+    char filepath[]="rtsp://admin:a12345678@192.168.0.62/h264/ch1/main/av_stream";
     
     av_register_all();
     avformat_network_init();
@@ -44,7 +45,7 @@ int main(int argc, const char * argv[]) {
 //    struct SwsContext *img_convert_ctx = nullptr;//图像转换上下文
     
     //SDL相关的变量
-    int screen_w = 1280*2, screen_h = 720*2;//显示的宽和高
+    int screen_w = 1920, screen_h = 1080;//显示的宽和高
     SDL_Window *screen = nullptr;
     SDL_Rect rect;
     SDL_Event event;
@@ -98,7 +99,7 @@ int main(int argc, const char * argv[]) {
                               screen_w, screen_h,
                               SDL_WINDOW_RESIZABLE/* SDL_WINDOW_HIDDEN*/| SDL_WINDOW_OPENGL);
     SDL_Renderer *sdlRenderer = SDL_CreateRenderer(screen, -1, 0);
-    SDL_Texture *sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_YV12,
+    SDL_Texture *sdlTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_IYUV,
                                                 SDL_TEXTUREACCESS_STREAMING,
                                                 screen_w, screen_h);
     
@@ -159,7 +160,7 @@ int main(int argc, const char * argv[]) {
         if(pFrameYUV){
             
             static FILE *fp_yuv = fopen("glw1.yuv", "wb");
-            if(fp_yuv && false){
+            if(fp_yuv&&false){
                 int y_size=screen_w*screen_h;
                 fwrite(pFrameYUV->data[0],1,y_size,fp_yuv);    //Y
                 fwrite(pFrameYUV->data[1],1,y_size/4,fp_yuv);  //U
