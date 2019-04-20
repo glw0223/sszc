@@ -152,9 +152,9 @@ int main(int argc, const char * argv[]) {
         AVFrame* pFrameYUV = rtspSource.getFrame();
         if(pFrameYUV){
             //todo:这里获得frame
-            SDL_UpdateTexture( sdlTexture, &rect, pFrameYUV->data[0], pFrameYUV->linesize[0] );
+            SDL_UpdateTexture( sdlTexture, nullptr, pFrameYUV->data[0], pFrameYUV->linesize[0] );
             SDL_RenderClear( sdlRenderer );
-            SDL_RenderCopy( sdlRenderer, sdlTexture, &rect, &rect );
+            SDL_RenderCopy( sdlRenderer, sdlTexture, nullptr, nullptr );
             SDL_RenderPresent( sdlRenderer );
         }
         if(pFrameYUV){
