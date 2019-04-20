@@ -28,7 +28,7 @@ extern "C"
 
 class RTSPSource{
 public:
-    RTSPSource();
+    RTSPSource(std::string name, std::string url, bool useTcp);
     ~RTSPSource();
     void Init();
     void Uninit();
@@ -39,6 +39,8 @@ public:
     
 public:
     AVFrame* getFrame();
+    bool hasFrame();
+    int64_t clearFrameAndBasePTS();
 private:
     void putFrame(AVFrame* frame);
     
@@ -66,9 +68,16 @@ private:
     
     bool bRun = false;
     
-    
     std::queue<AVFrame*> myAVFrame;
     std::mutex myMutex;
+    
+    std::string name = "";
+    std::string url = "";
+    bool isUseTCP = false;
+    
+    int swsDstWidth = 1920;
+    int swsDstHeight = 1080;
+    int64_t basePTS = 0;
 };
 
 #endif /* source_hpp */
