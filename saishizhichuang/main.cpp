@@ -49,10 +49,10 @@ int main(int argc, const char * argv[]) {
                                                 SDL_TEXTUREACCESS_STREAMING,
                                                 screen_w, screen_h);
     
-    RTSPSource rtspSource("source0",filepath,false);
+    RTSPSource rtspSource("source0",filepath,true);
     rtspSource.Start();
     
-    RTSPSource rtspSource1("source1",filepath1,false);
+    RTSPSource rtspSource1("source1",filepath1,true);
     rtspSource1.Start();
     bool timeline = false;
     while (true) {
