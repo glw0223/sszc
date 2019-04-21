@@ -66,7 +66,7 @@ int main(int argc, const char * argv[]) {
             }
             AVFrame* pFrameYUV = rtspSource.getFrame();
             AVFrame* pFrameYUV1 = rtspSource1.getFrame();
-            std::cout<<"pFrameYUV->pts:"<<pFrameYUV->pts<<" pFrameYUV1->pts:"<<pFrameYUV1->pts<<std::endl;
+            std::cout<<"pFrameYUV->pts:"<<pFrameYUV->pts/90<<" ms"<<" pFrameYUV1->pts:"<<pFrameYUV1->pts/90<<" ms"<<std::endl;
             if(pFrameYUV && pFrameYUV1){
                 
                 int w=1920,h=1080;
