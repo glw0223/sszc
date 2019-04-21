@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E023A26226A35E200DC86F9 /* CombineImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E023A24226A35E200DC86F9 /* CombineImage.cpp */; };
 		7E5CF77F2264DF9C00CFC990 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E5CF77E2264DF9C00CFC990 /* main.cpp */; };
 		7E5CF7D52265845A00CFC990 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5CF7D42265845A00CFC990 /* AudioToolbox.framework */; };
 		7E5CF7D72265847800CFC990 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5CF7D62265847700CFC990 /* VideoToolbox.framework */; };
@@ -48,8 +47,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7E023A24226A35E200DC86F9 /* CombineImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CombineImage.cpp; sourceTree = "<group>"; };
-		7E023A25226A35E200DC86F9 /* CombineImage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CombineImage.hpp; sourceTree = "<group>"; };
 		7E5CF77B2264DF9C00CFC990 /* saishizhichuang */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = saishizhichuang; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E5CF77E2264DF9C00CFC990 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7E5CF7C6226575FC00CFC990 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswresample.a; path = ../ffmpeg_temp/lib/libswresample.a; sourceTree = "<group>"; };
@@ -249,8 +246,6 @@
 				7E5CF87C22674BCF00CFC990 /* RTSPSource.hpp */,
 				7E5CF7F92265FECC00CFC990 /* ffmpeg */,
 				7E5CF77E2264DF9C00CFC990 /* main.cpp */,
-				7E023A24226A35E200DC86F9 /* CombineImage.cpp */,
-				7E023A25226A35E200DC86F9 /* CombineImage.hpp */,
 			);
 			path = saishizhichuang;
 			sourceTree = "<group>";
@@ -526,7 +521,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E5CF87D22674BCF00CFC990 /* RTSPSource.cpp in Sources */,
-				7E023A26226A35E200DC86F9 /* CombineImage.cpp in Sources */,
 				7E5CF77F2264DF9C00CFC990 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
