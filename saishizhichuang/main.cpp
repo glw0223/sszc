@@ -54,28 +54,46 @@ int main(int argc, const char * argv[]) {
     
     RTSPSource rtspSource1("source1",filepath1,true);
     rtspSource1.Start();
+    
+    RTSPSource rtspSource2("source2",filepath,true);
+    rtspSource2.Start();
+    
+    RTSPSource rtspSource3("source3",filepath1,true);
+    rtspSource3.Start();
+    
     bool timeline = false;
     while (true) {
-        if(rtspSource.hasFrame() && rtspSource1.hasFrame()){
+        if(rtspSource.hasFrame() && rtspSource1.hasFrame() && rtspSource2.hasFrame() && rtspSource3.hasFrame()){
             if(!timeline){
                 timeline = true;
                 int64_t pts = rtspSource.clearFrameAndBasePTS();
                 int64_t pts1 = rtspSource1.clearFrameAndBasePTS();
-                std::cout<<"pts:"<<pts/90<<" "<<"pts1:"<<pts1/90<<std::endl;
+                int64_t pts2 = rtspSource2.clearFrameAndBasePTS();
+                int64_t pts3 = rtspSource3.clearFrameAndBasePTS();
+                std::cout<<"pts:"<<pts/90<<" "<<"pts1:"<<pts1/90
+                <<" pts2:"<<pts2/90<<" pts3:"<<pts3/90<<std::endl;
                 continue;
             }
             AVFrame* pFrameYUV = rtspSource.getFrame();
             AVFrame* pFrameYUV1 = rtspSource1.getFrame();
+            AVFrame* pFrameYUV2 = rtspSource2.getFrame();
+            AVFrame* pFrameYUV3 = rtspSource3.getFrame();
             std::cout<<"pFrameYUV->pts:"<<pFrameYUV->pts/90<<" ms"<<" pFrameYUV1->pts:"<<pFrameYUV1->pts/90<<" ms"<<std::endl;
-            if(pFrameYUV && pFrameYUV1){
+            std::cout<<"pFrameYUV2->pts:"<<pFrameYUV2->pts/90<<" ms"<<" pFrameYUV3->pts:"<<pFrameYUV3->pts/90<<" ms"<<std::endl;
+
+            if(pFrameYUV && pFrameYUV1 && pFrameYUV2 && pFrameYUV3){
                 
                 int w=1920,h=1080;
-                SDL_Rect rect1,rect2;
+                SDL_Rect rect1,rect2,rect3,rect4;
                 rect1.x=0;rect1.y=0;rect1.w=w;rect1.h=h;
                 rect2.x=w;rect2.y=0;rect2.w=w;rect2.h=h;
+                rect3.x=0;rect3.y=h;rect3.w=w;rect3.h=h;
+                rect4.x=w;rect4.y=h;rect4.w=w;rect4.h=h;
                 
                 SDL_UpdateTexture( sdlTexture, &rect1, pFrameYUV->data[0], pFrameYUV->linesize[0] );
                 SDL_UpdateTexture( sdlTexture, &rect2, pFrameYUV1->data[0], pFrameYUV1->linesize[0] );
+                SDL_UpdateTexture( sdlTexture, &rect3, pFrameYUV2->data[0], pFrameYUV2->linesize[0] );
+                SDL_UpdateTexture( sdlTexture, &rect4, pFrameYUV3->data[0], pFrameYUV3->linesize[0] );
                 
                 SDL_RenderClear( sdlRenderer );
                 SDL_RenderCopy( sdlRenderer, sdlTexture, nullptr, nullptr );
