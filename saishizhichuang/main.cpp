@@ -27,9 +27,6 @@ extern "C"
 #include <unistd.h>
 
 int main(int argc, const char * argv[]) {
-    //char filepath[]="/Users/gaoliwen/work/testfile/gaoliwen.flv";
-    //char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
-    //char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch40/main/av_stream";
     char filepath[]="rtsp://admin:a12345678@192.168.0.62/h264/ch1/main/av_stream";
     char filepath1[]="rtsp://admin:a12345678@192.168.0.63/h264/ch1/main/av_stream";
     
@@ -53,11 +50,9 @@ int main(int argc, const char * argv[]) {
                                                 screen_w, screen_h);
     
     RTSPSource rtspSource("source0",filepath,false);
-    rtspSource.Init();
     rtspSource.Start();
     
     RTSPSource rtspSource1("source1",filepath1,false);
-    rtspSource1.Init();
     rtspSource1.Start();
     bool timeline = false;
     while (true) {
@@ -87,14 +82,6 @@ int main(int argc, const char * argv[]) {
                 SDL_RenderPresent( sdlRenderer );
             }
             if(pFrameYUV && pFrameYUV1){
-                //            static FILE *fp_yuv = fopen("glw1.yuv", "wb");
-                //            if(fp_yuv&&false){
-                //                int y_size=screen_w*screen_h;
-                //                fwrite(pFrameYUV->data[0],1,y_size,fp_yuv);    //Y
-                //                fwrite(pFrameYUV->data[1],1,y_size/4,fp_yuv);  //U
-                //                fwrite(pFrameYUV->data[2],1,y_size/4,fp_yuv);  //V
-                //            }
-                
                 delete[] pFrameYUV->data[0];
                 av_free(pFrameYUV);
                 pFrameYUV = nullptr;

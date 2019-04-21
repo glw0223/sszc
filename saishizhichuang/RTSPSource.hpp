@@ -30,8 +30,6 @@ class RTSPSource{
 public:
     RTSPSource(std::string name, std::string url, bool useTcp);
     ~RTSPSource();
-    void Init();
-    void Uninit();
     void Start();
     void Stop();
 
