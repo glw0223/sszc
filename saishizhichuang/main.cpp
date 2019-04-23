@@ -40,10 +40,10 @@ void writeYUV(char* filename, AVFrame* pFrameYUV, int y_size){
 }
 
 int main(int argc, const char * argv[]) {
-    char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
-    char filepath1[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
-    char filepath2[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
-    char filepath3[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
+    char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch40/main/av_stream";
+    char filepath1[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch40/main/av_stream";
+    char filepath2[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch40/main/av_stream";
+    char filepath3[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch40/main/av_stream";
     //char filepath[]="rtsp://admin:a12345678@192.168.0.62/h264/ch1/main/av_stream";
     //char filepath1[]="rtsp://admin:a12345678@192.168.0.63/h264/ch1/main/av_stream";
     
@@ -99,7 +99,7 @@ int main(int argc, const char * argv[]) {
             std::cout<<"pFrameYUV2->pts:"<<pFrameYUV2->pts/90<<" ms"<<" pFrameYUV3->pts:"<<pFrameYUV3->pts/90<<" ms"<<std::endl;
 
             if(pFrameYUV && pFrameYUV1 && pFrameYUV2 && pFrameYUV3){
-                int w=screen_w/2,h=screen_w/2;
+                int w=screen_w/2,h=screen_h/2;
                 SDL_Rect rect1,rect2,rect3,rect4;
                 rect1.x=0;rect1.y=0;rect1.w=w;rect1.h=h;
                 rect2.x=w;rect2.y=0;rect2.w=w;rect2.h=h;
