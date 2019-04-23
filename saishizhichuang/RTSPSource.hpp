@@ -39,6 +39,9 @@ public:
     AVFrame* getFrame();
     bool hasFrame();
     int64_t clearFrameAndBasePTS();
+    std::string getName(){
+        return name;
+    }
 private:
     void putFrame(AVFrame* frame);
     

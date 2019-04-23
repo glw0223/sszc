@@ -26,9 +26,26 @@ extern "C"
 
 #include <unistd.h>
 
+
+void writeYUV(char* filename, AVFrame* pFrameYUV, int y_size){
+    FILE *fp_yuv = fopen(filename, "wb");
+    if(fp_yuv){
+        //int y_size=(screen_w/2)*(screen_w/2);
+        fwrite(pFrameYUV->data[0],1,y_size,fp_yuv);    //Y
+        fwrite(pFrameYUV->data[1],1,y_size/4,fp_yuv);  //U
+        fwrite(pFrameYUV->data[2],1,y_size/4,fp_yuv);  //V
+    }
+    fclose(fp_yuv);
+    fp_yuv = nullptr;
+}
+
 int main(int argc, const char * argv[]) {
-    char filepath[]="rtsp://admin:a12345678@192.168.0.62/h264/ch1/main/av_stream";
-    char filepath1[]="rtsp://admin:a12345678@192.168.0.63/h264/ch1/main/av_stream";
+    char filepath[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
+    char filepath1[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
+    char filepath2[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
+    char filepath3[]="rtsp://admin:zq888888@47.104.180.74:8872/h264/ch34/main/av_stream";
+    //char filepath[]="rtsp://admin:a12345678@192.168.0.62/h264/ch1/main/av_stream";
+    //char filepath1[]="rtsp://admin:a12345678@192.168.0.63/h264/ch1/main/av_stream";
     
     av_register_all();
     avformat_network_init();
@@ -82,8 +99,7 @@ int main(int argc, const char * argv[]) {
             std::cout<<"pFrameYUV2->pts:"<<pFrameYUV2->pts/90<<" ms"<<" pFrameYUV3->pts:"<<pFrameYUV3->pts/90<<" ms"<<std::endl;
 
             if(pFrameYUV && pFrameYUV1 && pFrameYUV2 && pFrameYUV3){
-                
-                int w=1920,h=1080;
+                int w=screen_w/2,h=screen_w/2;
                 SDL_Rect rect1,rect2,rect3,rect4;
                 rect1.x=0;rect1.y=0;rect1.w=w;rect1.h=h;
                 rect2.x=w;rect2.y=0;rect2.w=w;rect2.h=h;
@@ -99,7 +115,30 @@ int main(int argc, const char * argv[]) {
                 SDL_RenderCopy( sdlRenderer, sdlTexture, nullptr, nullptr );
                 SDL_RenderPresent( sdlRenderer );
             }
-            if(pFrameYUV && pFrameYUV1){
+            if(pFrameYUV && pFrameYUV1 && pFrameYUV2 && pFrameYUV3){
+                
+                //////////////////////////////
+                //只是临时测试，把yuv数据写下来
+                int y_size=(screen_w/2)*(screen_w/2);
+                char name[128];
+                
+                memset(name, 1, sizeof(name));
+                sprintf(name,"%s_%lld_ms.yuv", rtspSource.getName().c_str(), pFrameYUV->pts/90);
+                writeYUV(name, pFrameYUV, y_size);
+                
+                memset(name, 1, sizeof(name));
+                sprintf(name,"%s_%lld_ms.yuv", rtspSource1.getName().c_str(), pFrameYUV1->pts/90);
+                writeYUV(name, pFrameYUV1, y_size);
+                
+                memset(name, 1, sizeof(name));
+                sprintf(name,"%s_%lld_ms.yuv", rtspSource2.getName().c_str(), pFrameYUV2->pts/90);
+                writeYUV(name, pFrameYUV2, y_size);
+                
+                memset(name, 1, sizeof(name));
+                sprintf(name,"%s_%lld_ms.yuv", rtspSource3.getName().c_str(), pFrameYUV3->pts/90);
+                writeYUV(name, pFrameYUV3, y_size);
+                //////////////////////////////
+                
                 delete[] pFrameYUV->data[0];
                 av_free(pFrameYUV);
                 pFrameYUV = nullptr;
@@ -107,6 +146,14 @@ int main(int argc, const char * argv[]) {
                 delete[] pFrameYUV1->data[0];
                 av_free(pFrameYUV1);
                 pFrameYUV1 = nullptr;
+                
+                delete[] pFrameYUV2->data[0];
+                av_free(pFrameYUV2);
+                pFrameYUV2 = nullptr;
+                
+                delete[] pFrameYUV3->data[0];
+                av_free(pFrameYUV3);
+                pFrameYUV3 = nullptr;
             }
         }
         //延时1ms
